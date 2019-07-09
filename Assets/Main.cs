@@ -76,12 +76,10 @@ public class Main : MonoBehaviour
         // each time we want to send a packet. 
         userPayload = new Payload();
 
-        Debug.Log("about to create client");
         // create an instance of the Nakama Client
         // replace 127.0.0.1 with the IP of your Nakama server. 
         client = new Client("http", "127.0.0.1", 7350, "defaultkey");
-
-        Debug.Log(client.ServerKey);
+     
         // open a new socket
         socket = client.NewSocket();
 
@@ -174,12 +172,6 @@ public class Main : MonoBehaviour
 
             // serialize the object to a byte array
             byte[] pl = Utility.ObjectToByteArray(userPayload);
-
-            Debug.Log("debug ----");
-            Debug.Log("matchid " + match.Id);
-            Debug.Log(pl.Length.ToString());
-            Debug.Log(socket.IsConnected.ToString());
-
 
             // call Nakama SendMatchState async end-point passing in the byte array.
             socket.SendMatchStateAsync(match.Id, 1, pl);
